@@ -1,0 +1,23 @@
+.tripListItem {
+    background-color: #A4B465;
+    color: #FEFAE0;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0.2%;
+    padding-left: 20px;
+    border-radius: 10px;
+    display: flex;
+}
+
+.tripListItem p {
+    padding-right: 5px;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.date {
+    font-style: italic;
+}

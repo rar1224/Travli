@@ -1,0 +1,11 @@
+:root {
+  color-scheme: light dark;
+  color: #626F47;
+  background-color: #FEFAE0;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  font-family: 'Playwrite DE SAS', cursive;
+}
