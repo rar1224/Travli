@@ -8,6 +8,8 @@
     margin: auto;
 }
 
+/* list/grid toggle */
+
 .view-toggle {
     display: flex;
 }
@@ -25,7 +27,7 @@
     margin-right: 10px;
     border-radius: 15px;
     display: flex;
-    border: 0px;
+    border-style: none;
 }
 
 .toggle-ball {
@@ -34,3 +36,18 @@
     height: 22px;
     border-radius: 50%;
 }
+
+/* filter/sort buttons */
+
+.navigation .organize-button {
+    margin: auto;
+    color: #FEFAE0;
+    font-size: medium;
+    font-family: 'Lato', sans-serif;
+    border-style: none;
+    width: 10%;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #A4B465;
+}
+
