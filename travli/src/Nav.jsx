@@ -2,7 +2,7 @@ import './Nav.css';
 import * as motion from 'motion/react-client'
 import {useState} from 'react';
 
-function Nav() {
+function Nav({openAddOverlay}) {
 const [tripView, setTripView] = useState(-1);
 const [organizeView, setOrganizeView] = useState(0);
 
@@ -13,6 +13,10 @@ function handleChangeView() {
 function handleOrganizeView(i) {
     if (organizeView == i) setOrganizeView(0);
     else setOrganizeView(i);
+}
+
+function handleOpenAddOverlay() {
+    openAddOverlay();
 }
 
     return (
@@ -30,7 +34,7 @@ function handleOrganizeView(i) {
             <motion.button className='organize-button' onClick={() => handleOrganizeView(2)} style={organizeView == 2 ? enabled : disabled}>
                 Sort
             </motion.button>
-            <motion.button className='organize-button'>
+            <motion.button className='organize-button' onClick={handleOpenAddOverlay}>
                 Add
             </motion.button>
         </div>

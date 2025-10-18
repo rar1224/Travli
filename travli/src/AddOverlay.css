@@ -1,0 +1,105 @@
+.overlay {
+    position: fixed;
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #626F47;
+    opacity: 70%;
+    z-index: 2; 
+}
+
+.window {
+    position: fixed;
+    top: 5%;
+    left: 30%;
+    right: 30%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #626F47;
+    color: #FEFAE0;
+    z-index: 3;
+    opacity: 100%;
+    border-radius: 15px;
+}
+
+h2 {
+    margin-top: 0px;
+    font-family: 'Playwrite DE SAS', cursive;
+    text-align: center;
+}
+
+label {
+    display: block;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    margin-top: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    margin-left: 10px;
+}
+
+.text-input {
+    width: 80%;
+    height: 30px;
+    background-color: #FEFAE0;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: medium;
+}
+
+.date-input {
+    height: 30px;
+    background-color: #FEFAE0;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: medium;
+    margin-right: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-left: 0px;
+    background-color: #FEFAE0;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: medium;
+    resize: none;
+}
+
+button {
+    margin: auto;
+    color: #FEFAE0;
+    font-size: medium;
+    font-family: 'Lato', sans-serif;
+    border-style: solid;
+    border-color: #FEFAE0;
+    width: 10%;
+    height: 30px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: #626F47;
+    display: block;
+}
