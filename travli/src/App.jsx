@@ -4,10 +4,12 @@ import axios from 'axios';
 import ListView from './ListView.jsx';
 import Nav from './Nav.jsx';
 import AddOverlay from './AddOverlay.jsx';
+import TripOverlay from './TripOverlay.jsx';
 
 function App() {
   const [trips, setTrips] = useState([]);
-  const [isAddOverlayOn, setAddOverlayOn] = useState(false);
+  const [activeOverlay, setActiveOverlay] = useState(0);
+  const [activeTrip, setActiveTrip] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3001/trips')
@@ -20,19 +22,25 @@ function App() {
   }, []);
 
   function handleOpenAddOverlay() {
-      setAddOverlayOn(true);
+      setActiveOverlay(1);
   }
 
-  function handleCloseAddOverlay() {
-      setAddOverlayOn(false);
+  function handleOpenTripOverlay(trip) {
+      setActiveTrip(trip);
+      setActiveOverlay(2);
+  }
+
+  function handleCloseOverlay() {
+      setActiveOverlay(0);
   }
 
   return (
     <>
     <h1>Travli</h1>
-      {isAddOverlayOn && <AddOverlay closeAddOverlay={handleCloseAddOverlay}/>}
+      {activeOverlay == 1 && <AddOverlay closeAddOverlay={handleCloseOverlay}/>}
+      {activeOverlay == 2 && <TripOverlay trip={activeTrip} closeTripOverlay={handleCloseOverlay}/>}
       <Nav openAddOverlay={handleOpenAddOverlay}/>
-      <ListView/>
+      <ListView trips={trips} openTripOverlay={handleOpenTripOverlay}/>
     </>
   )
 }

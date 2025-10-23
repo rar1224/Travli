@@ -1,15 +1,18 @@
 import { use, useState } from 'react';
 import './AddOverlay.css';
+import axios from 'axios';
 
-function AddOverlay({closeAddOverlay}) {
-    const [trip, setTrip] = useState({
+const emptyTrip = {
             name: "",
-            image: "https://images.pexels.com/photos/29498849/pexels-photo-29498849.jpeg",
+            image: "",
             destination: "",
             startDate: "",
             endDate: "",
             notes: ""
-    });
+};
+
+function AddOverlay({closeAddOverlay}) {
+    const [trip, setTrip] = useState(emptyTrip);
 
     const [nameStyle, setNameStyle] = useState(valid);
     const [destStyle, setDestStyle] = useState(valid);
@@ -54,6 +57,8 @@ function AddOverlay({closeAddOverlay}) {
             {
                 alert(message);
                 return false;
+            } else {
+                return true;
             }
     }
 
@@ -61,31 +66,55 @@ function AddOverlay({closeAddOverlay}) {
         closeAddOverlay();
     }
 
+    function handleChange(e) {
+        setTrip({...trip, [e.target.name]: e.target.value});
+    }
+
+    const handleSubmit = async (e) => {
+        try {
+            await axios.post('http://localhost:3001/trips', trip);
+            alert("Trip added!");
+            setTrip(emptyTrip);
+        } catch(error) {
+            console.error('There was an error adding the trip!', error);
+        }
+    }
+
+    function validateAndSubmit(e) {
+        if (validateForm()) {
+            handleSubmit(e);
+            closeAddOverlay();
+        }
+    }
+
     return (
         <>
             <div className='window'>
                 <h2>Add new trip</h2>
                 <form>
-                    <label>Name:<input className="text-input" type="text" value={trip.name}
-                    style={nameStyle} onChange={(e) => {setTrip({...trip, name: e.target.value})}}/></label>
+                    <label>Name:<input className="text-input" type="text" value={trip.name} name="name"
+                    style={nameStyle} onChange={handleChange}/></label>
 
-                    <label>Image:<input className="text-input" type="text" value={trip.image}
-                    onChange={(e) => setTrip({...trip, image: e.target.value})}/>
-                    <br/> <img src={trip.image}/>
+                    <label>Image:<input className="text-input" type="text" value={trip.image} name="image"
+                    onChange={handleChange}/>
+                    <br/> <img src={trip.image == "" ? null : trip.image}/>
                     </label>
 
-                    <label>Destination:<input className="text-input" type="text" value={trip.destination}
-                    style={destStyle} onChange={(e) => setTrip({...trip, destination: e.target.value})}/></label>
+                    <label>Destination:<input className="text-input" type="text" value={trip.destination} name="destination"
+                    style={destStyle} onChange={handleChange}/></label>
 
-                    <label>Start date:<input className="date-input" type="date" value={trip.startDate}
-                    style={startDateStyle} onChange={(e) => setTrip({...trip, startDate: e.target.value})}/>
-                    End date:<input className="date-input" type="date" value={trip.endDate}
-                    style={endDateStyle} onChange={(e) => setTrip({...trip, endDate: e.target.value})}/></label>
+                    <label>Start date:<input className="date-input" type="date" value={trip.startDate} name="startDate"
+                    style={startDateStyle} onChange={handleChange}/>
+                    End date:<input className="date-input" type="date" value={trip.endDate} name="endDate"
+                    style={endDateStyle} onChange={handleChange}/></label>
 
                     <label>Notes: <br/>
-                    <textarea value={trip.notes} onChange={(e) => setTrip({...trip, notes: e.target.value})}/></label>
+                    <textarea value={trip.notes} onChange={handleChange} name="notes"/></label>
 
-                    <button type="button" onClick={validateForm}>Submit</button>
+                    <div className='button-container'>
+                    <button type="button" onClick={validateAndSubmit}>Submit</button>
+                    <button type="button" onClick={handleCloseAddOverlay}>Cancel</button>
+                    </div>
                 </form>
             </div>
             <div className='overlay' onClick={handleCloseAddOverlay}/>

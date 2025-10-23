@@ -1,20 +1,21 @@
 import './ListView.css';
+import { useState } from 'react';
 
-function TripListItem({name, destination, startDate, endDate}) {
-  return (
-    <div className='tripListItem'>
-      <p className='title'>{name}</p>
-      <p className='destination'>{destination}</p>
-      <p className='date'>{startDate} - {endDate}</p>
-    </div>
-  )
+export function formatDate(date) {
+  return (date.getDate() + '-' + String(date.getMonth()).padStart(2, '0') + '-' + date.getFullYear());
 }
 
-function ListView() {
+function ListView({trips, openTripOverlay}) {
   return (
     <>
-      <TripListItem name="Business Trip" destination='Sol Chatha' startDate='12-29-23' endDate='20-29-23'/>
-      <TripListItem name="Summer Vacation" destination='Hamaza' startDate='29-29-23' endDate='32-29-23'/>
+      {trips.map(trip => (
+      <div key={trip.id} className='tripListItem' onClick={(e) => openTripOverlay(trip)}>
+        <p className='title'>{trip.name}</p>
+        <img className='icon' src='/location.png'/>
+        <p className='destination'>{trip.destination}</p>
+        <p className='date'>{formatDate(new Date(trip.startDate))} - {formatDate(new Date(trip.endDate))}</p>
+      </div>
+      ))}
     </>
   )
 }

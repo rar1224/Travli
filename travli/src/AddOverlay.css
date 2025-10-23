@@ -89,6 +89,11 @@ textarea {
     resize: none;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
 button {
     margin: auto;
     color: #FEFAE0;

@@ -21,3 +21,11 @@
 .date {
     font-style: italic;
 }
+
+.icon {
+    width: 19px;
+    height: 29px;
+    margin-left: 0px;
+    margin-right: 5px;
+    margin-top: 10px;
+}

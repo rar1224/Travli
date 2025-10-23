@@ -1,0 +1,24 @@
+.destination-text {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: larger;
+}
+
+.date-text {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.notes-text {
+    margin-bottom: 15px;
+}
+
+.overlay-icon {
+    width: 16px;
+    height: 23px;
+    margin-right: 5px;
+    display: inline;
+    vertical-align: bottom;
+}
