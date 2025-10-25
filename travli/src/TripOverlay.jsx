@@ -1,8 +1,28 @@
 import './AddOverlay.css';
 import './TripOverlay.css';
 import {formatDate} from './ListView.jsx';
+import axios from 'axios';
+import { useState } from 'react';
 
-function TripOverlay({trip, closeTripOverlay}) {
+function TripOverlay({activeTrip, closeTripOverlay, openEditOverlay}) {
+    const [trip, setTrip] = useState(activeTrip);
+
+    function handleDeleteTrip() {
+        let text = "Do you want to delete this trip?";
+        if (confirm(text)) {
+            deleteTrip();
+        }
+    }
+
+    const deleteTrip = async (e) => {
+        try {
+            await axios.delete('http://localhost:3001/trips/' + trip.id, trip);
+            alert("Trip deleted!");
+        } catch(error) {
+            console.error('There was an error deleting the trip!', error);
+        }
+    }
+
     return (
         <>
             <div className='window'>
@@ -14,8 +34,8 @@ function TripOverlay({trip, closeTripOverlay}) {
                 <div className='date-text'>{formatDate(new Date(trip.startDate))} - {formatDate(new Date(trip.endDate))}</div>
                 <div className='notes-text'>{trip.notes}</div>
                 <div className='button-container'>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={(e) => openEditOverlay(trip)}>Edit</button>
+                    <button onClick={handleDeleteTrip}>Delete</button>
                     <button onClick={closeTripOverlay}>Close</button>
                 </div>
             </div>
