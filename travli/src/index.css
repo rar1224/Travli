@@ -6,3 +6,13 @@
   font-family: 'Lato', sans-serif;
 }
 
+button {
+  font-family: 'Lato', sans-serif;
+  color: #FEFAE0;
+  font-size: medium;
+  border-style: none;
+  width: 10%;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #A4B465;
+}

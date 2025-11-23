@@ -1,8 +1,7 @@
 import './ListView.css';
-import { useState } from 'react';
 
 export function formatDate(date) {
-  return (date.getDate() + '-' + String(date.getMonth()).padStart(2, '0') + '-' + date.getFullYear());
+  return (date.getDate() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getFullYear());
 }
 
 function ListView({trips, openTripOverlay}) {

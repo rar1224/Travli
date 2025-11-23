@@ -1,6 +1,6 @@
 import './AddOverlay.css';
 import './TripOverlay.css';
-import {formatDate} from './ListView.jsx';
+import {formatDate} from '../ListView.jsx';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -18,6 +18,7 @@ function TripOverlay({activeTrip, closeTripOverlay, openEditOverlay}) {
         try {
             await axios.delete('http://localhost:3001/trips/' + trip.id, trip);
             alert("Trip deleted!");
+            closeTripOverlay();
         } catch(error) {
             console.error('There was an error deleting the trip!', error);
         }

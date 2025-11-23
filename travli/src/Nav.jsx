@@ -2,12 +2,13 @@ import './Nav.css';
 import * as motion from 'motion/react-client'
 import {useState} from 'react';
 
-function Nav({openAddOverlay}) {
-const [tripView, setTripView] = useState(-1);
+function Nav({openAddOverlay, changeView}) {
+const [tripView, setTripView] = useState(1);
 const [organizeView, setOrganizeView] = useState(0);
 
 function handleChangeView() {
     setTripView(-tripView);
+    changeView();
 }
 
 function handleOrganizeView(i) {

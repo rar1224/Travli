@@ -34,8 +34,9 @@ h2 {
     text-align: center;
 }
 
-label {
+.window label {
     display: block;
+    margin-bottom: 5px;
 }
 
 img {
@@ -47,10 +48,6 @@ img {
     margin-right: auto;
     object-fit: cover;
     border-radius: 15px;
-}
-
-label {
-    margin-bottom: 5px;
 }
 
 input {
@@ -94,7 +91,7 @@ textarea {
     justify-content: space-around;
 }
 
-button {
+.window button {
     margin: auto;
     color: #FEFAE0;
     font-size: medium;

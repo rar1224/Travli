@@ -1,0 +1,35 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 350px 350px 350px 350px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.grid-item {
+    background-color: #A4B465;
+    color: #FEFAE0;
+    margin: 10px;
+    height: 350px;
+    border-radius: 15px;
+}
+
+.grid-title {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.grid-destination {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: larger;
+}
+
+.grid-date {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
