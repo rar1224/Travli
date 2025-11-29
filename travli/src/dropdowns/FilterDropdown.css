@@ -63,3 +63,11 @@
     background-color: #A4B465;
     margin-right: 10px;
 }
+
+.filter-element .icon {
+    width: 8px;
+    height: 18px;
+    margin-left: 3px;
+    margin-right: 5px;
+    margin-top: 1px;
+}

@@ -8,11 +8,14 @@ import AddOverlay from './overlays/AddOverlay.jsx';
 import TripOverlay from './overlays/TripOverlay.jsx';
 import EditOverlay from './overlays/EditOverlay.jsx';
 import FilterDropdown from './dropdowns/FilterDropdown.jsx';
+import SortDropdown from './dropdowns/SortDropdown.jsx';
 import { filter } from 'motion/react-client';
 
 
 function App() {
   const [activeOverlay, setActiveOverlay] = useState(0);
+  const [activeDropdown, setActiveDropdown] = useState(0);
+
   const [activeTrip, setActiveTrip] = useState(null);
   const [reload, setReload] = useState(false);
   const [isListViewActive, setIsListViewActive] = useState(true);
@@ -28,6 +31,9 @@ function App() {
   const [comparison, setComparison] = useState();
 
   const [visibleTrips, setVisibleTrips] = useState([]);
+
+  const [activeSort, setActiveSort] = useState('');
+  const [descending, setDescending] = useState(true);
 
   useEffect(() => {
     setReload(false);
@@ -59,11 +65,69 @@ function App() {
       setActiveOverlay(0);
   }
 
+  function handleChangeDropdown(dropdown) {
+    setActiveDropdown(dropdown);
+  }
+
   function handlePassFilters(activeFilters, values, comparison) {
       setActiveFilters(activeFilters);
       setValues(values);
       setComparison(comparison);
       setReload(true);
+  }
+
+  function handleClearFilters() {
+      setActiveFilters({
+          name: false,
+          destination: false,
+          startDate: false,
+          endDate: false,
+          notes: false
+      });
+      setValues({
+          name: "",
+          destination: "",
+          startDate: "",
+          endDate: "",
+          notes: ""
+      });
+      setComparison('=');
+      setReload(true);
+  }
+
+  function handlePassSorting(activeSort, descending) {
+    setActiveSort(activeSort);
+    setDescending(descending);
+    setReload(true);
+  }
+
+  function sortTrips(newTrips) {
+    if (activeSort != '') {
+      if (activeSort == 'startDate' || activeSort == 'endDate') {
+        newTrips.sort((a, b) => compareDateProperty(a, b, activeSort));
+      } else {
+        newTrips.sort((a, b) => compareStringProperty(a, b, activeSort));
+      }
+
+      if (!descending) newTrips.reverse();
+    }
+
+    return newTrips;
+  }
+
+  function compareStringProperty(a, b, name) {
+    const astring = a[name].toLowerCase();
+    const bstring = b[name].toLowerCase();
+
+    if (astring > bstring) return 1;
+    else if (astring < bstring) return -1;
+    else return 0;
+  }
+
+  function compareDateProperty(a, b, name) {
+    if (a[name] > b[name]) return 1;
+    else if (a[name] < b[name]) return -1;
+    return 0;
   }
 
   function filterString(trips, filter) {
@@ -80,8 +144,6 @@ function App() {
   }
 
   function filterDate(trips, filter) {
-    
-
     if (activeFilters[filter]) {
       let filtered = [];
       let comp = comparison[filter];
@@ -114,6 +176,8 @@ function App() {
     newTrips = filterDate(newTrips, 'endDate');
     newTrips = filterString(newTrips, 'notes');
 
+    newTrips = sortTrips(newTrips);
+
     setVisibleTrips(newTrips);
   }
 
@@ -124,8 +188,9 @@ function App() {
       {activeOverlay == 1 && <AddOverlay closeAddOverlay={handleCloseOverlay}/>}
       {activeOverlay == 2 && <TripOverlay activeTrip={activeTrip} closeTripOverlay={handleCloseOverlay} openEditOverlay={handleOpenEditOverlay}/>}
       {activeOverlay == 3 && <EditOverlay activeTrip={activeTrip} closeEditOverlay={handleCloseOverlay}/>}
-      <Nav openAddOverlay={handleOpenAddOverlay} changeView={(e) => setIsListViewActive(!isListViewActive)}/>
-      <FilterDropdown passFilters={handlePassFilters}/>
+      <Nav openAddOverlay={handleOpenAddOverlay} changeView={(e) => setIsListViewActive(!isListViewActive)} changeDropdown={handleChangeDropdown}/>
+      {activeDropdown == 1 && <FilterDropdown passFilters={handlePassFilters} clearFilters={handleClearFilters}/>}
+      {activeDropdown == 2 && <SortDropdown passSorting={handlePassSorting}/>}
       {isListViewActive && <ListView trips={visibleTrips} openTripOverlay={handleOpenTripOverlay}/>}
       {!isListViewActive && <GridView trips={visibleTrips} openTripOverlay={handleOpenTripOverlay}/>}
     </>

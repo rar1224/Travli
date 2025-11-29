@@ -2,7 +2,7 @@ import './Nav.css';
 import * as motion from 'motion/react-client'
 import {useState} from 'react';
 
-function Nav({openAddOverlay, changeView}) {
+function Nav({openAddOverlay, changeView, changeDropdown}) {
 const [tripView, setTripView] = useState(1);
 const [organizeView, setOrganizeView] = useState(0);
 
@@ -12,8 +12,14 @@ function handleChangeView() {
 }
 
 function handleOrganizeView(i) {
-    if (organizeView == i) setOrganizeView(0);
-    else setOrganizeView(i);
+    if (organizeView == i) {
+        setOrganizeView(0);
+        changeDropdown(0);
+    }
+    else {
+        setOrganizeView(i);
+        changeDropdown(i);
+    }
 }
 
 function handleOpenAddOverlay() {

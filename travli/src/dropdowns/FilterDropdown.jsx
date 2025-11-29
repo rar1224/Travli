@@ -28,10 +28,10 @@ function DateFilter({name, title, activeFilters, handleChangeFilter, handleChang
     );
 }
 
-function FilterDropdown({passFilters}) {
+function FilterDropdown({passFilters, clearFilters}) {
     const [activeFilters, setActiveFilters] = useState({
-        name: true,
-        destination: true,
+        name: false,
+        destination: false,
         startDate: false,
         endDate: false,
         notes: false
@@ -70,6 +70,24 @@ function FilterDropdown({passFilters}) {
         setComparison({...comparison, [e.target.name] : next});
     }
 
+    function handleClearFilters() {
+        clearFilters();
+        setValues({
+            name: "",
+            destination: "",
+            startDate: "",
+            endDate: "",
+            notes: ""
+        });
+        setActiveFilters({
+            name: false,
+            destination: false,
+            startDate: false,
+            endDate: false,
+            notes: false
+        });
+    }
+
     return(
         <div className='filter-container'>
             <TextFilter name="name" title="Name" activeFilters={activeFilters} handleChangeFilter={handleChangeFilter} handleChange={handleChange} values={values}/>
@@ -80,7 +98,7 @@ function FilterDropdown({passFilters}) {
             handleChange={handleChange} values={values} comparison={comparison} handleChangeComparison={handleChangeComparison}/>
             <TextFilter name="notes" title="Notes" activeFilters={activeFilters} handleChangeFilter={handleChangeFilter} handleChange={handleChange} values={values}/>
             <button className='clear-button' onClick={(e) => passFilters(activeFilters, values, comparison)}>Apply filters</button>
-            <button className='clear-button'>Clear filters</button>
+            <button className='clear-button' onClick={handleClearFilters}>Clear filters</button>
         </div>
     );
 }
