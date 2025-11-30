@@ -12,9 +12,9 @@ function SortButton({title, name, isActive, descending, handleChangeSort}) {
     );
 }
 
-function SortDropdown({passSorting}) {
-    const [activeSort, setActiveSort] = useState('');
-    const [descending, setDescending] = useState(true);
+function SortDropdown({passSorting, sort, desc}) {
+    const [activeSort, setActiveSort] = useState(sort);
+    const [descending, setDescending] = useState(desc);
 
     function changeActiveSort(e) {
         let name = e.currentTarget.dataset.name || e.target.name;

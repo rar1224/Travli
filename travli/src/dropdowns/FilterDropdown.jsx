@@ -28,27 +28,12 @@ function DateFilter({name, title, activeFilters, handleChangeFilter, handleChang
     );
 }
 
-function FilterDropdown({passFilters, clearFilters}) {
-    const [activeFilters, setActiveFilters] = useState({
-        name: false,
-        destination: false,
-        startDate: false,
-        endDate: false,
-        notes: false
-    });
+function FilterDropdown({passFilters, clearFilters, filters, val, comp}) {
+    const [activeFilters, setActiveFilters] = useState(filters);
 
-    const [values, setValues] = useState({
-        name: "",
-        destination: "",
-        startDate: "",
-        endDate: "",
-        notes: ""
-    });
+    const [values, setValues] = useState(val);
 
-    const [comparison, setComparison] = useState({
-        startDate: "=",
-        endDate: "="
-    })
+    const [comparison, setComparison] = useState(comp);
     
     function handleChangeFilter(e) {
         let name = e.currentTarget.dataset.name || e.target.name;

@@ -27,8 +27,17 @@ function App() {
         endDate: false,
         notes: false
   });
-  const [values, setValues] = useState();
-  const [comparison, setComparison] = useState();
+  const [values, setValues] = useState({
+        name: "",
+        destination: "",
+        startDate: "",
+        endDate: "",
+        notes: ""
+  });
+  const [comparison, setComparison] = useState({
+        startDate: "=",
+        endDate: "="
+  });
 
   const [visibleTrips, setVisibleTrips] = useState([]);
 
@@ -91,7 +100,10 @@ function App() {
           endDate: "",
           notes: ""
       });
-      setComparison('=');
+      setComparison({
+        startDate: "=",
+        endDate: "="
+      });
       setReload(true);
   }
 
@@ -189,8 +201,9 @@ function App() {
       {activeOverlay == 2 && <TripOverlay activeTrip={activeTrip} closeTripOverlay={handleCloseOverlay} openEditOverlay={handleOpenEditOverlay}/>}
       {activeOverlay == 3 && <EditOverlay activeTrip={activeTrip} closeEditOverlay={handleCloseOverlay}/>}
       <Nav openAddOverlay={handleOpenAddOverlay} changeView={(e) => setIsListViewActive(!isListViewActive)} changeDropdown={handleChangeDropdown}/>
-      {activeDropdown == 1 && <FilterDropdown passFilters={handlePassFilters} clearFilters={handleClearFilters}/>}
-      {activeDropdown == 2 && <SortDropdown passSorting={handlePassSorting}/>}
+      {activeDropdown == 1 && <FilterDropdown passFilters={handlePassFilters} clearFilters={handleClearFilters}
+      filters={activeFilters} comp={comparison} val={values}/>}
+      {activeDropdown == 2 && <SortDropdown passSorting={handlePassSorting} sort={activeSort} desc={descending}/>}
       {isListViewActive && <ListView trips={visibleTrips} openTripOverlay={handleOpenTripOverlay}/>}
       {!isListViewActive && <GridView trips={visibleTrips} openTripOverlay={handleOpenTripOverlay}/>}
     </>
